@@ -1,0 +1,4 @@
+.idea/
+hm_venv/
+db.sqlite3
+.env
