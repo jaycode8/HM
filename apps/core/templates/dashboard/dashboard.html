@@ -1,0 +1,577 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Smart Plant Monitoring Dashboard</title>
+        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+    </head>
+    <body>
+        <div class="container">
+            <aside class="sidebar">
+                <div class="logo">M & H</div>
+                <nav>
+                    <ul>
+                        <li class="active"><span>🏠</span> Dashboard</li>
+                        <li><span>📈</span> Real Time Monitoring</li>
+                        <li><span>📊</span> Data Logging & Analysis</li>
+                        <li><span>⚙️</span> Automated Actions</li>
+                        <li><span>🌱</span> Growth Tracking</li>
+                        <li><span>☁️</span> Weather</li>
+                        <li><span>💬</span> Community Support</li>
+                    </ul>
+                </nav>
+            </aside>
+            <main class="dashboard">
+                <header style="padding: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <h1 style="margin: 0; font-size: 1.5rem;">Welcome, {{user.email}}</h1>
+                        <div style="position: relative; width: 50px; height: 50px; cursor: pointer;" id="avatarDropdown">
+                            <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="48" stroke="#43a3ad" stroke-width="4" fill="#E6F0FA"/>
+                                <circle cx="50" cy="35" r="12" fill="#43a3ad"/>
+                                <path d="M30 75c0-11 9-20 20-20s20 9 20 20" fill="#43a3ad"/>
+                            </svg>
+
+                            <div style="position: absolute; top: 60px; right: 0; width: 220px; background-color: white; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 15px; display: none; z-index: 1000;" id="userDropdown">
+                                <a href="/profile" style="display: block; padding: 8px 10px; color: #212529; text-decoration: none; border-radius: 4px; margin: 5px 0;">Profile Settings</a>
+                                <div style="height: 1px; background-color: #e9ecef; margin: 10px 0;"></div>
+                                <a href="/logout" style="display: block; padding: 8px 10px; color: #dc3545; text-decoration: none; border-radius: 4px; margin: 5px 0; font-weight: bold;">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <div style="display: flex; flex-direction: row; justify-content: space-between">
+                    <div style="display: flex; flex-direction: column">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; gap: 1rem">
+                            <section class="weather-section">
+                                <div class="weather-card">
+                                    <div class="weather-header">
+                                        <span>Weather</span>
+                                        <span class="weather-icon">
+                                            <!-- Simple sun + cloud SVG icon -->
+                                            <svg width="32" height="24" viewBox="0 0 32 24">
+                                                <circle cx="22" cy="8" r="6" fill="#FFD93B" />
+                                                <ellipse cx="14" cy="16" rx="10" ry="7" fill="#B3E0F2" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; flex-direction: row; justify-content: space-between; position: relative">
+                                            <input type="text" value="Nairobi" readonly style="background: white; border-radius: 1rem; outline: 0; border: none; padding: 0.5rem 0.5rem" />
+                                            <span class="search-icon" style="background: transparent; position: absolute; right: 0.5rem; top: 0.4rem">&#128269;</span>
+                                        </div>
+                                    </div>
+                                    <div class="weather-main">
+                                        <div class="weather-center">
+                                            <div class="weather-bubble main">
+                                                <div class="temp">11.2°C</div>
+                                                <div class="desc">Clear</div>
+                                            </div>
+                                        </div>
+                                        <div class="weather-bubbles">
+                                            <div class="weather-bubble">
+                                                <div>Humidity</div>
+                                                <div>43%</div>
+                                            </div>
+                                            <div class="weather-bubble">
+                                                <div>Wind</div>
+                                                <div>10.8 km/</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="monitoring-section">
+                                <div class="monitoring-card">
+                                    <h3>Real Time Monitoring</h3>
+                                    <div class="monitoring-content">
+                                        <div class="status-panel">
+                                            <div class="status-header">
+                                                <span>Status</span>
+                                                <select>
+                                                    <option>Weekly</option>
+                                                    <option>Daily</option>
+                                                    <option>Monthly</option>
+                                                </select>
+                                            </div>
+                                            <div class="status-item">
+                                                <span>Humidity</span>
+                                                <div class="progress-bar"><div style="width: 70%"></div></div>
+                                            </div>
+                                            <div class="status-item">
+                                                <span>Soil pH</span>
+                                                <div class="progress-bar"><div style="width: 50%"></div></div>
+                                            </div>
+                                            <div class="status-item">
+                                                <span>Pesticide</span>
+                                                <div class="progress-bar"><div style="width: 80%"></div></div>
+                                            </div>
+                                        </div>
+                                        <div class="monitoring-pie">
+                                            <!-- SVG Pie Chart -->
+                                            <svg viewBox="0 0 100 100" width="120" height="120">
+                                                <circle r="40" cx="50" cy="50" fill="#e8f7e5" />
+                                                <path d="M50,50 L50,10 A40,40 0 0,1 90,50 Z" fill="#b6e0d4" />
+                                                <path d="M50,50 L90,50 A40,40 0 0,1 60,90 Z" fill="#6eb6b6" />
+                                                <path d="M50,50 L60,90 A40,40 0 0,1 50,10 Z" fill="#f5f5f5" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="monitoring-chart">
+                                        <!-- SVG Line Chart -->
+                                        <svg viewBox="0 0 220 70" width="100%" height="70">
+                                            <rect x="0" y="0" width="220" height="70" rx="12" fill="#f6f6e9" />
+                                            <!-- Example lines -->
+                                            <polyline points="10,60 40,50 70,55 100,35 130,45 160,30 190,40 210,35" fill="none" stroke="#b07bc8" stroke-width="2" />
+                                            <polyline points="10,65 40,60 70,60 100,55 130,60 160,50 190,60 210,65" fill="none" stroke="#6e6eb6" stroke-width="2" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <section class="plant-activity-section">
+                            <div class="plant-activity-monitor">
+                                <div class="pam-header">
+                                    <span class="pam-title">Plant Activity Monitor</span>
+                                    <select class="pam-dropdown">
+                                        <option>Weekly</option>
+                                        <option>Monthly</option>
+                                    </select>
+                                </div>
+                                <div class="pam-top-row">
+                                    <div class="pam-card status">
+                                        <div class="pam-card-title">Current Status</div>
+                                        <div class="pam-status-item">Soil Moisture <span class="pam-underline"></span></div>
+                                        <div class="pam-status-item">pH Level <span class="pam-underline"></span></div>
+                                        <div class="pam-status-item">Nitrogen <span class="pam-underline"></span></div>
+                                        <div class="pam-status-item">Phosphorous <span class="pam-underline"></span></div>
+                                        <div class="pam-status-item">Potassium <span class="pam-underline"></span></div>
+                                    </div>
+                                    <div class="pam-card env">
+                                        <div class="pam-card-title">Environmental Conditions</div>
+                                        <div class="pam-status-item">Temperature <span class="pam-underline"></span></div>
+                                        <div class="pam-status-item">Humidity <span class="pam-underline"></span></div>
+                                    </div>
+                                    <div class="pam-card rec">
+                                        <div class="pam-rec-row">
+                                            <div class="pam-card-title">Recommendations</div>
+                                            <span class="pam-bell">&#128276;</span>
+                                        </div>
+                                        <div class="pam-rec-note">No recommendations at this time</div>
+                                    </div>
+                                </div>
+                                <div class="pam-chart-row">
+                                    <div class="pam-chart-card">
+                                        <!-- SVG Line Chart Placeholder -->
+                                        <svg viewBox="0 0 400 120" width="100%" height="120">
+                                            <rect x="0" y="0" width="400" height="120" rx="16" fill="#f6f3ea" />
+                                            <polyline points="10,40 60,80 110,60 160,90 210,70 260,100 310,60 360,90 390,60" fill="none" stroke="#9c27b0" stroke-width="2" />
+                                            <polyline points="10,50 60,70 110,90 160,60 210,100 260,80 310,100 360,60 390,80" fill="none" stroke="#cddc39" stroke-width="2" />
+                                            <line x1="10" y1="110" x2="390" y2="110" stroke="#222" stroke-width="2" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="app-container">
+                            <!-- App Header -->
+                            <div class="app-header">
+                                <div class="app-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                    </svg>
+                                </div>
+                                <h1 class="app-title">Plant Pesticide Detector</h1>
+                            </div>
+
+                            <!-- Instructions Card -->
+                            <div class="card">
+                                <p class="instructions">Upload a clear photo of your plant leaf to check for pesticide effects.</p>
+                                <p class="file-info">
+                                    Supported formats: JPG, PNG. Max size 10MB
+                                    <span class="info-icon">i</span>
+                                </p>
+                            </div>
+
+                            <!-- Upload Area -->
+                            <div class="card">
+                                <div class="upload-area">
+                                    <div class="dropzone">
+                                        <div class="dropzone-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                                <polyline points="17 8 12 3 7 8"></polyline>
+                                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                                            </svg>
+                                        </div>
+                                        <p class="dropzone-text">Drag & drop your image here</p>
+                                    </div>
+
+                                    <div class="upload-controls">
+                                        <button class="btn btn-outline">Remove</button>
+                                        <div class="radio-group">
+                                            <label class="radio-label">
+                                                <input type="radio" name="option" class="radio-input" checked />
+                                            </label>
+                                            <label class="radio-label">
+                                                <input type="radio" name="option" class="radio-input" />
+                                            </label>
+                                        </div>
+                                        <button class="btn btn-primary">Analyze</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="progress-container">
+                                <p class="progress-text">Uploading....</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill"></div>
+                                </div>
+                            </div>
+
+                            <!-- Result Card -->
+                            <div class="card">
+                                <h3>Image Preview</h3>
+                                <div class="result-container">
+                                    <img src="/api/placeholder/100/100" alt="Plant leaf with water droplets" class="result-image" />
+                                    <div class="result-details">
+                                        <p class="result-status">
+                                            <span class="result-label">Status:</span>
+                                            <span class="result-value">Healthy Leaf</span>
+                                        </p>
+                                        <p class="result-confidence">
+                                            <span class="result-label">Confidence:</span>
+                                            <span class="result-value">92%</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <section class="data-logging-section">
+                        <section class="recommendation-card" style="margin: 1rem">
+                            <div class="rec-header">
+                                <span class="rec-title">Recommendations</span>
+                                <span class="rec-bell">
+                                    <!-- Bell SVG Icon -->
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                        <path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 0 0-3 0v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29A1 1 0 0 0 6 19h12a1 1 0 0 0 .71-1.71L18 17z" fill="#111" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="rec-body">No recommendations at this time</div>
+                        </section>
+
+                        <div class="dashboard" style="background: #3eb0bb; margin-left: 1rem; border-radius: 1rem">
+                            <h2>Data Logging and Analysis</h2>
+                            <div class="dashboard-grid">
+                                <div class="card status">
+                                    <h3>System Status</h3>
+                                    <ul>
+                                        <li>Humidity Sensor <span class="active" style="margin-left: 0.5rem; background: white; padding: 0.3rem; border-radius: 0.8rem; font-size: 0.8rem">Active</span></li>
+                                        <li>Soil pH Sensor <span class="active" style="margin-left: 0.5rem; background: white; padding: 0.3rem; border-radius: 0.8rem; font-size: 0.8rem">Active</span></li>
+                                        <li>Pesticide Sensor <span class="active" style="margin-left: 0.5rem; background: white; padding: 0.3rem; border-radius: 0.8rem; font-size: 0.8rem">Active</span></li>
+                                    </ul>
+                                </div>
+                                <div class="card env">
+                                    <h3>Environmental Conditions</h3>
+                                    <ul>
+                                        <li>Temperature</li>
+                                        <li>Humidity</li>
+                                    </ul>
+                                </div>
+                                <div class="card soil">
+                                    <h3>Soil Conditions</h3>
+                                    <ul>
+                                        <li>Soil Moisture</li>
+                                        <li>Soil pH</li>
+                                    </ul>
+                                </div>
+                                <div class="card actions">
+                                    <h3>Recent Actions</h3>
+                                    <ul>
+                                        <li>Irrigation<br />4/16/2025, 10:05:25 AM</li>
+                                        <li>pH Level</li>
+                                        <li>Pesticide spray</li>
+                                        <li>Irrigation Control</li>
+                                        <li>Fertilizer Control</li>
+                                        <li>Pesticide Control</li>
+                                    </ul>
+                                </div>
+                                <div class="card alerts">
+                                    <h3>Active Alerts</h3>
+                                    <div>
+                                        <strong>INVENTORY</strong><br />
+                                        Low inventory for Bacillus thuringiensis: 9kg remaining<br />
+                                        4/16/2025, 11:41:58 AM
+                                    </div>
+                                </div>
+                                <div class="pie-container">
+                                    <svg viewBox="0 0 200 200" width="220" height="220">
+                                        <circle r="100" cx="100" cy="100" fill="#e0ecd6" />
+                                        <path d="M100,100 L100,0 A100,100 0 0,1 200,100 Z" fill="#b7d6c2" />
+                                        <path d="M100,100 L200,100 A100,100 0 0,1 150,186.6 Z" fill="#7db5a3" />
+                                        <path d="M100,100 L150,186.6 A100,100 0 0,1 100,0 Z" fill="#e0ecd6" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <section class="automated-actions-section">
+                            <div class="automated-actions-card">
+                                <h2>Automated Actions</h2>
+                                <div class="auto-actions-top">
+                                    <div class="auto-actions-row">
+                                        <!-- Irrigation -->
+                                        <div class="auto-box">
+                                            <div class="auto-title">Irrigation</div>
+                                            <div class="auto-row">
+                                                <span>Automation</span>
+                                                <span class="enabled-btn">Enabled</span>
+                                            </div>
+                                            <div class="auto-row">
+                                                <span>Water Level</span>
+                                                <span>0%</span>
+                                            </div>
+                                            <div class="auto-bar"><div style="width: 0%"></div></div>
+                                            <div class="auto-row">
+                                                <span>Threshold</span>
+                                                <span>0%</span>
+                                            </div>
+                                            <div class="auto-bar"><div style="width: 0%"></div></div>
+                                        </div>
+                                        <!-- pH Balance -->
+                                        <div class="auto-box">
+                                            <div class="auto-title">pH Balance</div>
+                                            <div class="auto-row">
+                                                <span>Automation</span>
+                                                <span class="enabled-btn">Enabled</span>
+                                            </div>
+                                            <div class="auto-row">
+                                                <span>Fertilizer Level</span>
+                                                <span>0%</span>
+                                            </div>
+                                            <div class="auto-bar"><div style="width: 0%"></div></div>
+                                            <div class="auto-row">
+                                                <span>Threshold</span>
+                                                <span>0%</span>
+                                            </div>
+                                            <div class="auto-bar"><div style="width: 0%"></div></div>
+                                        </div>
+                                        <!-- Pesticide -->
+                                        <div class="auto-box">
+                                            <div class="auto-title">Pesticide</div>
+                                            <div class="auto-row">
+                                                <span>Automation</span>
+                                                <span class="enabled-btn">Enabled</span>
+                                            </div>
+                                            <div class="auto-row">
+                                                <span>Pesticide Level</span>
+                                                <span>0%</span>
+                                            </div>
+                                            <div class="auto-bar"><div style="width: 0%"></div></div>
+                                            <div class="auto-row">
+                                                <span>Threshold</span>
+                                                <span>0%</span>
+                                            </div>
+                                            <div class="auto-bar"><div style="width: 0%"></div></div>
+                                        </div>
+                                    </div>
+                                    <!-- Pie Chart -->
+                                    <div class="auto-pie">
+                                        <svg viewBox="0 0 160 160" width="160" height="160">
+                                            <circle r="80" cx="80" cy="80" fill="#e2f2de" />
+                                            <path d="M80,80 L80,0 A80,80 0 0,1 153.1,24.7 Z" fill="#b9e3d3" />
+                                            <path d="M80,80 L153.1,24.7 A80,80 0 1,1 80,0 Z" fill="#c7e9cd" />
+                                            <path d="M80,80 L80,160 A80,80 0 0,1 24.7,153.1 Z" fill="#7bd1b3" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <!-- Manual Controls -->
+                                <div class="auto-manual-controls">
+                                    <div class="manual-title">Manual Override Controls</div>
+                                    <div class="manual-controls-row">
+                                        <div>
+                                            <div class="manual-label">Irrigation Controls</div>
+                                            <button>Start Irrigation</button>
+                                            <button>Stop Irrigation</button>
+                                        </div>
+                                        <div>
+                                            <div class="manual-label">Fertilizer Controls</div>
+                                            <button>Start Fertilizer</button>
+                                            <button>Stop Fertilizer</button>
+                                        </div>
+                                        <div>
+                                            <div class="manual-label">Pesticide Controls</div>
+                                            <button>Start Pesticide</button>
+                                            <button>Stop Pesticide</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Bar Chart -->
+                                <div class="auto-bar-chart">
+                                    <svg viewBox="0 0 400 120" width="100%" height="120">
+                                        <rect x="0" y="0" width="400" height="120" rx="16" fill="#f6f3ea" />
+                                        <g>
+                                            <rect x="20" y="60" width="18" height="40" fill="#7bd1b3" />
+                                            <rect x="42" y="40" width="18" height="60" fill="#35a7b4" />
+                                            <rect x="70" y="80" width="18" height="20" fill="#7bd1b3" />
+                                            <rect x="92" y="40" width="18" height="60" fill="#35a7b4" />
+                                            <rect x="120" y="60" width="18" height="40" fill="#7bd1b3" />
+                                            <rect x="142" y="50" width="18" height="50" fill="#35a7b4" />
+                                            <rect x="170" y="70" width="18" height="30" fill="#7bd1b3" />
+                                            <rect x="192" y="30" width="18" height="70" fill="#35a7b4" />
+                                            <rect x="220" y="60" width="18" height="40" fill="#7bd1b3" />
+                                            <rect x="242" y="80" width="18" height="20" fill="#35a7b4" />
+                                            <rect x="270" y="70" width="18" height="30" fill="#7bd1b3" />
+                                            <rect x="292" y="50" width="18" height="50" fill="#35a7b4" />
+                                            <rect x="320" y="80" width="18" height="20" fill="#7bd1b3" />
+                                            <rect x="342" y="60" width="18" height="40" fill="#35a7b4" />
+                                            <!-- Red dot for outlier -->
+                                            <circle cx="210" cy="40" r="4" fill="#d32f2f" />
+                                        </g>
+                                        <line x1="0" y1="100" x2="400" y2="100" stroke="#222" stroke-width="2" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="community-hub-container">
+                            <h2 class="hub-title">Community Hub</h2>
+
+                            <section class="hub-top-row">
+                                <input type="text" placeholder="Search Discussions......." class="search-bar" />
+                                <select class="filter-dropdown">
+                                    <option>All</option>
+                                </select>
+                            </section>
+
+                            <section class="hub-main-content">
+                                <div class="hub-charts">
+                                    <canvas id="pieChart" width="150" height="150"></canvas>
+                                    <canvas id="lineChart" width="220" height="80"></canvas>
+                                </div>
+
+                                <aside class="hub-side">
+                                    <section class="training-resources card">
+                                        <h3>Training Resources</h3>
+                                        <ul>
+                                            <li><span class="icon organic"></span>Organic Farming Basics</li>
+                                            <li><span class="icon pest"></span>Pest Management Guide</li>
+                                            <li><span class="icon irrigation"></span>Smart Irrigation Course</li>
+                                        </ul>
+                                    </section>
+
+                                    <section class="top-contributors card">
+                                        <h3>Top Contributors</h3>
+                                        <ul>
+                                            <li>Expert Farmer 1<br /><span class="contrib-count">80 contributions</span></li>
+                                            <li>Expert Farmer 2<br /><span class="contrib-count">60 contributions</span></li>
+                                            <li>Expert Farmer 3<br /><span class="contrib-count">40 contributions</span></li>
+                                        </ul>
+                                    </section>
+                                </aside>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    document.getElementById('avatarDropdown').addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const dropdown = document.getElementById('userDropdown');
+                        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                    });
+
+                    document.addEventListener('click', function(e) {
+                        const dropdown = document.getElementById('userDropdown');
+                        if (dropdown.style.display === 'block') {
+                            dropdown.style.display = 'none';
+                        }
+                    });
+                </script>
+                <script>
+                    const pieCtx = document.getElementById("pieChart").getContext("2d");
+                    const pieChart = new Chart(pieCtx, {
+                        type: "pie",
+                        data: {
+                            labels: ["Organic Farming", "Pest Management", "Irrigation"],
+                            datasets: [
+                                {
+                                    data: [25, 30, 45],
+                                    backgroundColor: ["#d2edea", "#e6f3e6", "#b7e2e2"],
+                                    borderColor: "#fff",
+                                    borderWidth: 2,
+                                },
+                            ],
+                        },
+                        options: {
+                            responsive: false,
+                            plugins: {
+                                legend: {
+                                    position: "bottom",
+                                    labels: {
+                                        color: "#fff",
+                                        font: { size: 12 },
+                                    },
+                                },
+                            },
+                        },
+                    });
+
+                    const lineCtx = document.getElementById("lineChart").getContext("2d");
+                    const lineChart = new Chart(lineCtx, {
+                        type: "line",
+                        data: {
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                            datasets: [
+                                {
+                                    label: "Contributions",
+                                    data: [10, 20, 15, 25, 30, 40],
+                                    fill: true,
+                                    backgroundColor: "rgba(162, 211, 156, 0.4)",
+                                    borderColor: "#a2d39c",
+                                    tension: 0.3,
+                                    pointRadius: 3,
+                                    pointBackgroundColor: "#4caf50",
+                                },
+                            ],
+                        },
+                        options: {
+                            responsive: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        color: "#fff",
+                                    },
+                                    grid: {
+                                        color: "rgba(255,255,255,0.2)",
+                                    },
+                                },
+                                x: {
+                                    ticks: {
+                                        color: "#fff",
+                                    },
+                                    grid: {
+                                        color: "rgba(255,255,255,0.2)",
+                                    },
+                                },
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false,
+                                },
+                            },
+                        },
+                    });
+                </script>
+            </main>
+        </div>
+    </body>
+</html>

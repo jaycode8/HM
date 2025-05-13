@@ -1,0 +1,397 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>M & H | Milk and Honey Smart Farming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+   
+</head>
+<body style="display: relative;">
+<nav class="navbar">
+    <span class="brand">M &amp; H</span>
+    <a href="#">Home</a>
+    <a href="#">About Us</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+    <div class="dropdown">
+      <a href="#">Area of Applications &#9662;</a>
+      <div class="dropdown-content">
+        <a href="#">Greenhouse</a>
+        <a href="#">Livestock</a>
+        <a href="#">Aquaculture</a>
+      </div>
+    </div>
+    <a href="#">Enquiry</a>
+    <span class="right">
+      <a href="/login">Login</a>
+    </span>
+  </nav>
+ <!-- Hero Section -->
+<section class="hero">
+ <div class="hero-overlay" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({% static 'images/hero.png' %});"></div>
+  <div class="hero-content">
+    <h1>MILK AND HONEY</h1>
+    <h2>Smart Farming</h2>
+    <p>Automate your farm management</p>
+  </div>
+</section>
+
+
+  <!-- Features Row -->
+  <div class="features-row">
+    <div class="feature-card">
+      <img src="{% static 'images/database 1.png' %}" alt="Real Time Monitoring">
+      <div class="feature-title">Real Time Monitoring</div>
+    </div>
+    <div class="feature-card">
+      <img src="{% static 'images/automated.png' %}" alt="Automated Actions">
+      <div class="feature-title">Automated Actions</div>
+    </div>
+    <div class="feature-card">
+      <img src="{% static 'images/monitoring 1.png' %}" alt="Data Logging & Analysis">
+      <div class="feature-title">Data Logging<br>&amp; Analysis</div>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="about-top-row">
+      <img class="about-img-main" src="{% static 'images/img1 1.png' %}" alt="Smart Farming Drone" style="object-fit: fill;">
+      <div class="about-content">
+        <h2>ABOUT M &amp; H</h2>
+        <p>
+          M &amp; H is a tech-driven company on a mission to revolutionize the agricultural industry.
+          We leverage AI, machine learning and IoT to deliver smarter farming solutions.
+        </p>
+        <div class="about-features-row">
+          <div class="about-feature">
+            <div class="about-feature-title">Smart Agriculture</div>
+            <div class="about-feature-desc">Innovative tools for precision farming, crop monitoring, and yield optimization.</div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-title">Farm Monitoring Systems</div>
+            <div class="about-feature-desc">Real-time monitoring of soil health, moisture, temperature, and pest levels through IoT sensors and AI analytics.</div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-title">Precision Farming</div>
+            <div class="about-feature-desc">Using technology to help farmers reduce waste and improve yields.</div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-title">Sustainable Practices</div>
+            <div class="about-feature-desc">Solutions designed to protect biodiversity.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-bottom-row">
+      <img class="about-img-small" src="{% static 'images/drone.png' %}" alt="Laptop in field">
+      <img class="about-img-small" src="{% static 'images/laptop.png' %}" alt="Drone spraying">
+      <img class="about-img-small" src="{% static 'images/farm.png' %}" alt="Field analytics">
+    </div>
+  </section>
+  <section class="process-section">
+    <h2 class="process-title">Steps To Our Process</h2>
+    <div class="process-steps-row" style="display: grid; grid-auto-flow: column; gap: 1rem;">
+      <!-- Step 1 -->
+      <div class="process-step">
+        <div class="process-step-header">
+          <div class="process-step-title">Sensors Collect data</div>
+          <div class="process-step-icon">
+            <!-- Plant SVG -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><g><ellipse cx="24" cy="41" rx="13" ry="4" fill="#A2D39C"/><path d="M24 38V17" stroke="#222" stroke-width="2" stroke-linecap="round"/><path d="M24 17C24 17 23.5 7 14 8.5C14 8.5 15 20 24 17Z" fill="#A2D39C" stroke="#222" stroke-width="2"/><path d="M24 17C24 17 24.5 7 34 8.5C34 8.5 33 20 24 17Z" fill="#A2D39C" stroke="#222" stroke-width="2"/><circle cx="24" cy="17" r="3" fill="#A2D39C" stroke="#222" stroke-width="2"/></g></svg>
+          </div>
+        </div>
+        <div class="process-step-desc" style="margin-bottom:1.5em;">
+          M &amp; H starts with smart environmental sensors placed across the farm;<br>
+          Soil moisture<br>
+          Temperature<br>
+          Pesticides<br>
+          Soil pH<br>
+          Humidity
+        </div>
+      </div>
+      <div class="arrow"></div>
+      <!-- Step 2 -->
+      <div class="process-step">
+        <div class="process-step-header">
+          <div class="process-step-title">Wireless Data Transmission</div>
+          <div class="process-step-icon">
+            <!-- Wireless Tower SVG -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><g><path d="M24 38V28" stroke="#222" stroke-width="2" stroke-linecap="round"/><path d="M24 28L16 38H32L24 28Z" fill="#A2D39C" stroke="#222" stroke-width="2"/><circle cx="24" cy="24" r="3" fill="#A2D39C" stroke="#222" stroke-width="2"/><path d="M24 21V8" stroke="#222" stroke-width="2" stroke-linecap="round"/><path d="M24 8C27 8 29 10 29 13" stroke="#222" stroke-width="2" stroke-linecap="round"/><path d="M24 8C21 8 19 10 19 13" stroke="#222" stroke-width="2" stroke-linecap="round"/></g></svg>
+          </div>
+        </div>
+        <div class="process-step-desc">
+          The sensors send data wirelessly to the M &amp; H Base station
+        </div>
+        <div class="process-why-matters">
+          <strong>Why it matters</strong><br>
+          Tracks what matters in real time
+        </div>
+      </div>
+      <div class="arrow"></div>
+      <!-- Step 3 -->
+      <div class="process-step">
+        <div class="process-step-header">
+          <div class="process-step-title">Cloud Storage and Analysis</div>
+          <div class="process-step-icon">
+            <!-- Cloud SVG -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><g><ellipse cx="24" cy="36" rx="14" ry="6" fill="#A2D39C"/><ellipse cx="24" cy="24" rx="14" ry="10" fill="#A2D39C"/><ellipse cx="24" cy="24" rx="14" ry="10" stroke="#222" stroke-width="2"/><ellipse cx="24" cy="36" rx="14" ry="6" stroke="#222" stroke-width="2"/><ellipse cx="24" cy="24" rx="7" ry="5" fill="#fff" stroke="#222" stroke-width="2"/></g></svg>
+          </div>
+        </div>
+        <div class="process-step-desc">
+          Farming operations&nbsp; are automatically controlled using connected systems
+        </div>
+        <div class="process-why-matters">
+          <strong>Why it matters</strong><br>
+          Saves time and labor with automation
+        </div>
+      </div>
+      <div class="arrow"></div>
+      <!-- Step 4 -->
+      <div class="process-step">
+        <div class="process-step-header">
+          <div class="process-step-title">Visual Dashboard</div>
+          <div class="process-step-icon">
+            <!-- Dashboard SVG -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><g><rect x="6" y="10" width="36" height="28" rx="4" fill="#A2D39C" stroke="#222" stroke-width="2"/><path d="M14 30C16 26 20 22 24 22C28 22 32 26 34 30" stroke="#222" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="22" r="2" fill="#222"/><path d="M24 22V16" stroke="#222" stroke-width="2" stroke-linecap="round"/></g></svg>
+          </div>
+        </div>
+        <div class="process-step-desc">
+          Farmers access data through an interactive dashboard
+        </div>
+        <div class="process-why-matters">
+          <strong>Why it matters</strong><br>
+          Keeps you informed at a glance
+        </div>
+      </div>
+      <div class="arrow"></div>
+      <!-- Step 5 -->
+      <div class="process-step">
+        <div class="process-step-header">
+          <div class="process-step-title">Alerts and Recommendations</div>
+          <div class="process-step-icon">
+            <!-- Bell SVG -->
+            <svg width="48" height="48" viewBox="0 0 48 48"><g><path d="M24 42C26.2091 42 28 40.2091 28 38H20C20 40.2091 21.7909 42 24 42Z" fill="#A2D39C" stroke="#222" stroke-width="2"/><path d="M36 34V24C36 17.3726 30.6274 12 24 12C17.3726 12 12 17.3726 12 24V34H36Z" fill="#A2D39C" stroke="#222" stroke-width="2"/><path d="M12 34H36" stroke="#222" stroke-width="2" stroke-linecap="round"/></g></svg>
+          </div>
+        </div>
+        <div class="process-step-desc">
+          Farmers receive timely alerts and tailored recommendations
+        </div>
+        <div class="process-why-matters">
+          <strong>Why it matters</strong><br>
+          Stay one step ahead of issues
+        </div>
+      </div>
+    </div>
+    
+  </section>
+  
+<div class="smartfarmdataflow">
+    <img style="width: 100%; height:auto;" src="{% static 'images/smart_farming.png' %}" alt="">
+</div>
+
+<section class="services-section">
+    <!-- Header -->
+    <div class="services-header">
+      <div class="services-header-text">
+        <h1 class="services-title">Our Services</h1>
+        <div class="services-mission">
+          Our Mission Is To Make Your Business<br>
+          Better Through Technology
+        </div>
+      </div>
+      <button class="explore-btn">Explore Our Services</button>
+    </div>
+  
+    <!-- Service Cards -->
+    <div class="services-cards-row">
+      <div class="service-card">
+        <div class="service-icon">📊🪴</div>
+        <h3>Real Time&nbsp; Monitoring</h3>
+        <div class="view-more">View More <span class="arrow">&rarr;</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3>Automated&nbsp; Actions</h3>
+        <div class="view-more">View More <span class="arrow">&rarr;</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔍📈</div>
+        <h3>Data Logging &amp;<br>Analysis</h3>
+        <div class="view-more">View More <span class="arrow">&rarr;</span></div>
+      </div>
+    </div>
+  
+    <!-- Why Choose Us -->
+    <div class="why-section">
+      <div class="why-text">
+        <div class="why-title">Why Choose Us</div>
+        <div class="why-desc">
+          To revolutionize farming through smart, data-driven solutions that empower farmers to grow healthier, more productive crops
+        </div>
+      </div>
+      <button class="join-btn">Join Now</button>
+    </div>
+  </section>
+  
+ 
+  
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-info">
+        <h1>Contact Info</h1>
+        <p class="tagline">Let's connect and grow smarter together!</p>
+  
+        <div class="contact-item">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path>
+              <path d="M15 2.5C18 2.5 20 4.5 20 7.5" stroke="currentColor" stroke-width="1"></path>
+              <path d="M15 5.5C16.5 5.5 17.5 6.5 17.5 8" stroke="currentColor" stroke-width="1"></path>
+            </svg>
+          </div>
+          <div class="contact-text">+254 12345678</div>
+        </div>
+  
+        <div class="contact-item">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <div class="contact-text">mh@gmail.com</div>
+        </div>
+  
+        <div class="contact-item">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="contact-text">Nairobi, Kenya</div>
+        </div>
+      </div>
+  
+      <div class="form-section">
+        <div class="form-row">
+          <input type="text" placeholder="Name">
+          <input type="email" placeholder="Email">
+        </div>
+        <input type="text" placeholder="Subject" style="margin-bottom: 20px;">
+        <textarea placeholder="Your Message"></textarea>
+        <button type="submit">Send Message</button>
+      </div>
+    </div>
+  </section>
+  
+
+  <footer class="footer-section" style="background-color:#D9EAD3;">
+    <div class="footer-container">
+      <!-- Newsletter Signup -->
+      <div class="newsletter-card">
+        <div class="newsletter-icon">
+          <!-- Envelope SVG -->
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+            <rect width="60" height="60" rx="8" fill="#222"/>
+            <g>
+              <path d="M15 19h30a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H15a2 2 0 0 1-2-2V21a2 2 0 0 1 2-2z" fill="#7bd1b3"/>
+              <path d="M13 21l17 13 17-13" stroke="#222" stroke-width="2" fill="none"/>
+              <circle cx="30" cy="30" r="7" fill="#222"/>
+              <text x="30" y="34" text-anchor="middle" fill="#7bd1b3" font-size="10" font-family="Arial" font-weight="bold">@</text>
+            </g>
+          </svg>
+        </div>
+        <h2>Sign Up To Our<br>Newsletters</h2>
+        <p class="newsletter-desc">
+          Subscribe to our Newsletter &amp; Event<br>
+          right now to be updated
+        </p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Email Address" required>
+          <button type="submit">
+            Subscribe <span class="arrow">&rarr;</span>
+          </button>
+        </form>
+      </div>
+  
+      <!-- Footer Main Content -->
+      <div class="footer-main">
+        <div class="footer-contact-row">
+          <div class="footer-contact">
+            <div class="footer-contact-item">
+              <span class="footer-contact-icon">
+                <!-- Paper plane SVG -->
+                <svg width="22" height="22" fill="none" stroke="#222" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>
+              </span>
+              <div class="footer-details">
+                <div class="footer-contact-title">General enquiries</div>
+                <div class="footer-contact-text">m&amp;h@gmail.com</div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-contact">
+            <div class="footer-contact-item">
+              <span class="footer-contact-icon">
+                <!-- Phone SVG -->
+                <svg width="22" height="22" fill="none" stroke="#222" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.07 6.09 2 2 0 0 1 5.11 4h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </span>
+              <div>
+                <div class="footer-contact-title">Give us a call</div>
+                <div class="footer-contact-text">+254 12345678</div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <hr class="footer-divider">
+  
+        <div class="footer-links-row">
+          <div class="footer-links">
+            <div class="footer-link-title">Explore</div>
+            <ul>
+              <li>What we offer</li>
+              <li>Latest News</li>
+              <li>Project</li>
+              <li>Terms &amp; Condition</li>
+              <li>Privacy Policy</li>
+            </ul>
+          </div>
+          <div class="footer-mission">
+            <div class="footer-link-title">M &amp; H</div>
+            <div class="footer-mission-text">
+              We carry out our mission based on<br>
+              the values of impeccable business<br>
+              reputation, social responsibility,<br>
+              respect for human dignity and<br>
+              synergetic<br>
+              and result-oriented partnerships.
+            </div>
+            <div class="footer-socials">
+              <a href="#" class="footer-social" aria-label="Facebook">
+                <img src="https://img.icons8.com/fluency/48/facebook.png" alt="Facebook">
+              </a>
+              <a href="#" class="footer-social" aria-label="X">
+                <img src="https://img.icons8.com/ios/50/twitterx--v2.png" alt="X">
+              </a>
+              <a href="#" class="footer-social" aria-label="LinkedIn">
+                <img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn">
+              </a>
+              <a href="#" class="footer-social" aria-label="Instagram">
+                <img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      Copyright &copy; 2025 M &amp; H. All Rights Reserved
+    </div>
+  </footer>
+</body>
+</html>
