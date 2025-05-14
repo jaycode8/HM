@@ -15,6 +15,30 @@ from .serializers import UserSerializer
 # Create your views here.
 
 @api_view(["GET"])
+def file_upload(request):
+    ...
+
+@api_view(["GET"])
+def tomato(request):
+    return render(request, "tomato.html", {})
+
+@api_view(["GET"])
+def data_logging(request):
+    return render(request, "datalogging.html", {})
+
+@api_view(["GET"])
+def automated_actions(request):
+    return render(request, "automatedactions.html", {})
+
+@api_view(["GET"])
+def sensors(request):
+    return render(request, "sensors.html", {})
+
+@api_view(["GET"])
+def enquiry(request):
+    return render(request, "enquiry.html", {})
+
+@api_view(["GET"])
 def logout_view(request):
     logout(request)
 

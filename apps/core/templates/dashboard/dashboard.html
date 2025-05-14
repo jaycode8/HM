@@ -6,6 +6,192 @@
         <meta charset="UTF-8" />
         <title>Smart Plant Monitoring Dashboard</title>
         <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+        <style>
+            .card {
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .upload-area {
+                padding: 20px;
+            }
+
+            .dropzone {
+                border: 2px dashed #cbd5e1;
+                border-radius: 8px;
+                padding: 40px 20px;
+                text-align: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                position: relative;
+                min-height: 200px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .dropzone.active {
+                border-color: #3b82f6;
+                background-color: rgba(59, 130, 246, 0.05);
+            }
+
+            .dropzone-icon {
+                color: #64748b;
+                margin-bottom: 16px;
+            }
+
+            .dropzone-text {
+                color: #64748b;
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+
+            .dropzone-subtext {
+                color: #94a3b8;
+                font-size: 14px;
+            }
+
+            .upload-controls {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 16px;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                border-radius: 6px;
+                font-size: 14px;
+                font-weight: 500;
+                border: none;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .btn-outline {
+                background-color: transparent;
+                border: 1px solid #cbd5e1;
+                color: #64748b;
+            }
+
+            .btn-outline:hover {
+                background-color: #f1f5f9;
+            }
+
+            .btn-primary {
+                background-color: #3b82f6;
+                color: white;
+            }
+
+            .btn-primary:hover {
+                background-color: #2563eb;
+            }
+
+            .btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+            .radio-group {
+                display: flex;
+                gap: 8px;
+            }
+
+            .radio-label {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                background-color: #f1f5f9;
+                cursor: pointer;
+            }
+
+            .radio-input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            .radio-label::after {
+                content: "";
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background-color: #3b82f6;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+
+            .radio-input:checked + .radio-label::after {
+                opacity: 1;
+            }
+
+            .preview-container {
+                position: relative;
+                display: none;
+                width: 100%;
+                height: 200px;
+                margin-bottom: 16px;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .preview-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            .file-input {
+                display: none;
+            }
+
+            .error-message {
+                color: #ef4444;
+                font-size: 14px;
+                margin-top: 8px;
+                display: none;
+            }
+
+            .loading {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2;
+            }
+
+            .loading-spinner {
+                border: 3px solid #f3f3f3;
+                border-top: 3px solid #3b82f6;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -24,20 +210,20 @@
                 </nav>
             </aside>
             <main class="dashboard">
-                <header style="padding: 15px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                        <h1 style="margin: 0; font-size: 1.5rem;">Welcome, {{user.email}}</h1>
-                        <div style="position: relative; width: 50px; height: 50px; cursor: pointer;" id="avatarDropdown">
+                <header style="padding: 15px">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
+                        <h1 style="margin: 0; font-size: 1.5rem">Welcome, {{user.email}}</h1>
+                        <div style="position: relative; width: 50px; height: 50px; cursor: pointer" id="avatarDropdown">
                             <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="50" cy="50" r="48" stroke="#43a3ad" stroke-width="4" fill="#E6F0FA"/>
-                                <circle cx="50" cy="35" r="12" fill="#43a3ad"/>
-                                <path d="M30 75c0-11 9-20 20-20s20 9 20 20" fill="#43a3ad"/>
+                                <circle cx="50" cy="50" r="48" stroke="#43a3ad" stroke-width="4" fill="#E6F0FA" />
+                                <circle cx="50" cy="35" r="12" fill="#43a3ad" />
+                                <path d="M30 75c0-11 9-20 20-20s20 9 20 20" fill="#43a3ad" />
                             </svg>
 
-                            <div style="position: absolute; top: 60px; right: 0; width: 220px; background-color: white; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 15px; display: none; z-index: 1000;" id="userDropdown">
-                                <a href="/profile" style="display: block; padding: 8px 10px; color: #212529; text-decoration: none; border-radius: 4px; margin: 5px 0;">Profile Settings</a>
-                                <div style="height: 1px; background-color: #e9ecef; margin: 10px 0;"></div>
-                                <a href="/logout" style="display: block; padding: 8px 10px; color: #dc3545; text-decoration: none; border-radius: 4px; margin: 5px 0; font-weight: bold;">Logout</a>
+                            <div style="position: absolute; top: 60px; right: 0; width: 220px; background-color: white; border-radius: 6px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 15px; display: none; z-index: 1000" id="userDropdown">
+                                <a href="/profile" style="display: block; padding: 8px 10px; color: #212529; text-decoration: none; border-radius: 4px; margin: 5px 0">Profile Settings</a>
+                                <div style="height: 1px; background-color: #e9ecef; margin: 10px 0"></div>
+                                <a href="/logout" style="display: block; padding: 8px 10px; color: #dc3545; text-decoration: none; border-radius: 4px; margin: 5px 0; font-weight: bold">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -200,7 +386,11 @@
                             <!-- Upload Area -->
                             <div class="card">
                                 <div class="upload-area">
-                                    <div class="dropzone">
+                                    <div class="preview-container">
+                                        <img id="image-preview" src="" alt="Preview" />
+                                    </div>
+
+                                    <div class="dropzone" id="dropzone">
                                         <div class="dropzone-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -209,19 +399,22 @@
                                             </svg>
                                         </div>
                                         <p class="dropzone-text">Drag & drop your image here</p>
+                                        <p class="dropzone-subtext">or click to browse</p>
                                     </div>
 
+                                    <p class="error-message" id="error-message">Invalid file type. Please upload an image.</p>
+
+                                    <input type="file" id="file-input" class="file-input" accept="image/*" />
+
                                     <div class="upload-controls">
-                                        <button class="btn btn-outline">Remove</button>
+                                        <button class="btn btn-outline" id="remove-btn" disabled>Remove</button>
                                         <div class="radio-group">
-                                            <label class="radio-label">
-                                                <input type="radio" name="option" class="radio-input" checked />
-                                            </label>
-                                            <label class="radio-label">
-                                                <input type="radio" name="option" class="radio-input" />
-                                            </label>
+                                            <input type="radio" name="option" class="radio-input" id="option1" checked />
+                                            <label for="option1" class="radio-label"></label>
+                                            <input type="radio" name="option" class="radio-input" id="option2" />
+                                            <label for="option2" class="radio-label"></label>
                                         </div>
-                                        <button class="btn btn-primary">Analyze</button>
+                                        <button class="btn btn-primary" id="analyze-btn" disabled>Analyze</button>
                                     </div>
                                 </div>
                             </div>
@@ -482,16 +675,16 @@
 
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <script>
-                    document.getElementById('avatarDropdown').addEventListener('click', function(e) {
+                    document.getElementById("avatarDropdown").addEventListener("click", function (e) {
                         e.stopPropagation();
-                        const dropdown = document.getElementById('userDropdown');
-                        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                        const dropdown = document.getElementById("userDropdown");
+                        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
                     });
 
-                    document.addEventListener('click', function(e) {
-                        const dropdown = document.getElementById('userDropdown');
-                        if (dropdown.style.display === 'block') {
-                            dropdown.style.display = 'none';
+                    document.addEventListener("click", function (e) {
+                        const dropdown = document.getElementById("userDropdown");
+                        if (dropdown.style.display === "block") {
+                            dropdown.style.display = "none";
                         }
                     });
                 </script>
@@ -573,5 +766,164 @@
                 </script>
             </main>
         </div>
+
+        <script>
+            // Get all DOM elements we need
+            const dropzone = document.getElementById("dropzone");
+            const fileInput = document.getElementById("file-input");
+            const imagePreview = document.getElementById("image-preview");
+            const previewContainer = document.querySelector(".preview-container");
+            const removeButton = document.getElementById("remove-btn");
+            const analyzeButton = document.getElementById("analyze-btn");
+            const errorMessage = document.getElementById("error-message");
+
+            // Keep track of the current file
+            let currentFile = null;
+
+            // Add event listeners
+            dropzone.addEventListener("click", () => fileInput.click());
+            fileInput.addEventListener("change", handleFileSelect);
+            removeButton.addEventListener("click", removeFile);
+            analyzeButton.addEventListener("click", analyzeImage);
+
+            // Add drag and drop event listeners
+            ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+                dropzone.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+
+            ["dragenter", "dragover"].forEach((eventName) => {
+                dropzone.addEventListener(eventName, highlight, false);
+            });
+
+            ["dragleave", "drop"].forEach((eventName) => {
+                dropzone.addEventListener(eventName, unhighlight, false);
+            });
+
+            dropzone.addEventListener("drop", handleDrop, false);
+
+            // Prevent default drag behaviors
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            // Highlight dropzone when dragging over it
+            function highlight() {
+                dropzone.classList.add("active");
+            }
+
+            // Remove highlight when drag leaves or on drop
+            function unhighlight() {
+                dropzone.classList.remove("active");
+            }
+
+            // Handle dropped files
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+
+                if (files.length > 0) {
+                    processFile(files[0]);
+                }
+            }
+
+            // Handle file select from input
+            function handleFileSelect(e) {
+                const files = e.target.files;
+
+                if (files.length > 0) {
+                    processFile(files[0]);
+                }
+            }
+
+            // Process the selected file
+            function processFile(file) {
+                // Check if the file is an image
+                if (!file.type.match("image.*")) {
+                    showError("Invalid file type. Please upload an image.");
+                    return;
+                }
+
+                hideError();
+                currentFile = file;
+
+                // Create and display the preview
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    previewContainer.style.display = "block";
+                    dropzone.style.display = "none";
+
+                    // Enable buttons
+                    removeButton.disabled = false;
+                    analyzeButton.disabled = false;
+                };
+
+                reader.readAsDataURL(file);
+            }
+
+            // Remove the current file
+            function removeFile() {
+                currentFile = null;
+                imagePreview.src = "";
+                previewContainer.style.display = "none";
+                dropzone.style.display = "flex";
+                fileInput.value = "";
+
+                // Disable buttons
+                removeButton.disabled = true;
+                analyzeButton.disabled = true;
+
+                hideError();
+            }
+
+            // Analyze the image (demo function)
+            function analyzeImage() {
+                if (!currentFile) return;
+
+                // Create and show loading spinner
+                const loadingEl = document.createElement("div");
+                loadingEl.className = "loading";
+                loadingEl.innerHTML = '<div class="loading-spinner"></div>';
+                previewContainer.appendChild(loadingEl);
+
+                // Simulate analysis (remove in real implementation)
+                setTimeout(() => {
+                    previewContainer.removeChild(loadingEl);
+                    alert(`Analysis complete for image: ${currentFile.name}`);
+                }, 2000);
+
+                // In a real implementation, you would send the file to your server
+                // const formData = new FormData();
+                // formData.append('image', currentFile);
+                // fetch('/api/analyze', {
+                //     method: 'POST',
+                //     body: formData
+                // })
+                // .then(response => response.json())
+                // .then(data => {
+                //     // Process and display results
+                // })
+                // .catch(error => {
+                //     console.error('Error:', error);
+                // })
+                // .finally(() => {
+                //     previewContainer.removeChild(loadingEl);
+                // });
+            }
+
+            // Show error message
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = "block";
+            }
+
+            // Hide error message
+            function hideError() {
+                errorMessage.style.display = "none";
+            }
+        </script>
     </body>
 </html>

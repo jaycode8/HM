@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M & H Enquiry</title>
+  <link href="{% static 'css/enquiry.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
+</head>
+<body style="background: #c6e6d3;">
+ 
+{% include 'partials/header.html' %}
+
+  <main>
+    <section class="enquiry-bg" style="padding-top: 10rem;">
+      <form class="enquiry-form">
+        <h2>M & H Enquiry</h2>
+        <p>If you have enquiries, we are capable to offer the solutions to these issues and more!</p>
+        <label>Email Address*</label>
+        <input type="email" required>
+        <label>Full Name*</label>
+        <input type="text" required>
+        <label>Phone Number</label>
+        <input type="tel">
+        <label>What is your area of interest?</label>
+        <input type="text">
+        <label>Are you a farmer, grower?</label>
+        <input type="text">
+        <label>Do you require any product trials?</label>
+        <input type="text">
+        <label>How did you hear about us?</label>
+        <input type="text">
+        <label>Message/Question</label>
+        <textarea rows="3"></textarea>
+        <div class="milk-honey">
+          <b>MILK & HONEY</b>
+          <p>We are always happy to help! Please provide as much information as possible so we can respond quickly and accurately. Your details will be treated in the strictest confidence and will not be shared with any third parties.</p>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  {% include 'partials/footer.html' %}
+
+</body>
+</html>

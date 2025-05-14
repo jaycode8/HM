@@ -1,0 +1,484 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Outdoor Tomato Growing</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
+  <style>
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4aada3;
+  color: white;
+  padding: 20px 0;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 8px;
+  position: relative; /* Inside hero */
+  z-index: 3;
+  margin-top: 0;
+  top: 0;
+}
+
+.navbar a,
+.navbar .dropdown {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 20px;
+  margin-right: auto;
+}
+
+.right {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Hero Section */
+.hero {
+  height: 80vh; /* shorter to show content below */
+  position: relative;
+  background-image: url('Images/pexels-nc-farm-bureau-mark-2886937\ 1.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding-top: 20px;
+}
+
+.hero h1 {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.hero h2 {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 2rem;
+}
+    .container {
+      max-width: 100vw;
+      margin: 0;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      padding: 0 18px 18px 18px;
+
+    }
+    h2 {
+      text-align: center;
+      margin: 22px 0 16px 0;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    p {
+      margin: 10px 0;
+      font-size: 1em;
+      line-height: 1.7;
+    }
+    ul {
+      margin: 10px 0 10px 20px;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 5px 10px 5px;
+      }
+      .hero-image {
+        height: 100px;
+      }
+      .hero-image img {
+        height: 100px;
+      }
+      h2 {
+        font-size: 1.1em;
+      }
+    }
+
+    .footer-section {
+  background: #c7e9cd;
+  padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  gap: 44px;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 0 0 18px 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.newsletter-card {
+  background: #6dc7b2;
+  border-radius: 18px;
+  padding: 38px 34px 32px 34px;
+  min-width: 320px;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 30px;
+  margin-bottom: 18px;
+  box-shadow: none;
+}
+
+.newsletter-icon {
+  margin-bottom: 18px;
+}
+
+.newsletter-card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: #222;
+}
+
+.newsletter-desc {
+  font-size: 1.08rem;
+  margin-bottom: 24px;
+  color: #222;
+}
+
+.newsletter-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.newsletter-form input[type="email"] {
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 24px;
+  border: none;
+  font-size: 1.13rem;
+  margin-bottom: 0;
+  background: #fff;
+  color: #222;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.newsletter-form button {
+  background: #d7efd6;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 34px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #222;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.2s;
+}
+.newsletter-form button:hover {
+  background: #b7ddc2;
+}
+.newsletter-form .arrow {
+  font-size: 1.45rem;
+  margin-left: 6px;
+}
+
+.footer-main {
+  flex: 2 1 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Contact Row */
+.footer-contact-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 44px;
+  margin-bottom: 16px;
+}
+
+.footer-contact {
+  display: flex;
+  align-items: flex-start;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-contact-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer-details {
+  justify-content: center;
+  align-items: center;
+}
+.footer-contact-title {
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: #222;
+  justify-content: center;
+}
+
+.footer-contact-text {
+  font-size: 1.07rem;
+  color: #222;
+}
+
+/* Divider */
+.footer-divider {
+  border: none;
+  border-top: 2px solid #222;
+  margin: 24px 0 24px 0;
+  width: 100%;
+  opacity: 0.5;
+}
+
+/* Links and Mission Row */
+.footer-links-row {
+  display: flex;
+  gap: 44px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.footer-links {
+  min-width: 180px;
+  margin-right: 40px;
+}
+
+.footer-link-title {
+  font-size: 1.13rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links ul li {
+  font-size: 1.05rem;
+  color: #222;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.footer-links ul li:hover {
+  color: #45a2ad;
+}
+
+.footer-mission {
+  flex: 1 1 320px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-mission-text {
+  font-size: 1.07rem;
+  color: #222;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.footer-social img {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  background: #fff;
+  padding: 4px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.footer-social:hover img {
+  background: #45a2ad;
+  transform: scale(1.1);
+}
+
+/* Copyright */
+.footer-copyright {
+  text-align: center;
+  font-size: 1.06rem;
+  color: #222;
+  padding: 18px 0 18px 0;
+  background: #c7e9cd;
+  border-top: 1px solid #b7ddc2;
+  margin-top: 18px;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+    padding: 0 18px 18px 18px;
+  }
+  .footer-main {
+    width: 100%;
+  }
+  .footer-links-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .newsletter-card {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 0 18px 0;
+    padding: 26px 10px 20px 10px;
+    align-items: stretch;
+  }
+  .footer-container {
+    padding: 0 6px 12px 6px;
+  }
+  .footer-contact-row {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .footer-links-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-mission {
+    max-width: 100%;
+  }
+  .footer-social img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+
+
+  </style>
+
+</head>
+<body>
+{% include 'partials/header.html' %}
+
+  <div class="hero-image">
+    <img src="images/" alt="Tomatoes">
+  </div>
+  <div class="container">
+    <h2>Outdoor Tomato Growing</h2>
+    <p>
+        Outdoor tomato cultivation involves a range of precision technologies designed to enhance yield and fruit quality. 
+      <br>
+While some aspects are similar to field crop production, tomatoes require more attentive irrigation management, nutritional monitoring, and disease prevention strategies, making them ideal for smart agricultural solutions like Milk & Honey.
+    </p>
+    <p>
+Tomatoes require consistent attention from the moment of transplanting. Proper seedbed preparation and maintaining optimal soil moisture in the root zone during early establishment are critical. This directly influences root development and the uniformity of fruit set and ripening.For tomatoes, continuous nutrient availability is key to achieving high yield and fruit quality.    </p>
+    <p>
+Milk & Honey can be configured to monitor soil and microclimate conditions throughout the tomato crop cycle. This distributed monitoring system allows for precision irrigation, reducing water waste and ensuring plant health.    </p>
+    <p> Even basic linear irrigation systems can cost Ksh.700-Ksh.800 per hectare per mm of water applied. However, with Milk & Honey real-time monitoring and data-driven control, farmers can expect 10–15% irrigation savings while maintaining or increasing yields.</p>
+    <p>Monitoring air temperature, humidity, and leaf wetness allows Milk & Honey to generate plant protection forecasts specific to tomatoes, helping predict and prevent diseases such as late blight and early blight, which thrive in specific microclimatic conditions.</p>
+    <p>Grow healthier, tastier tomatoes with Milk & Honey!</p>
+  </div>
+
+
+  {% include 'partials/footer.html' %}
+</body>
+</html>
