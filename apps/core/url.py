@@ -16,5 +16,6 @@ urlpatterns = [
     path('auto-actions', views.automated_actions),
     path('data-logging', views.data_logging),
     path('tomato', views.tomato),
+    path('detection', views.detection),
     path("api/", include(router.urls)),
 ]

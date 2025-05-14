@@ -673,6 +673,8 @@
                     </section>
                 </div>
 
+                {% include 'partials/chatbot.html' %}
+
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <script>
                     document.getElementById("avatarDropdown").addEventListener("click", function (e) {
@@ -889,29 +891,26 @@
                 loadingEl.innerHTML = '<div class="loading-spinner"></div>';
                 previewContainer.appendChild(loadingEl);
 
-                // Simulate analysis (remove in real implementation)
-                setTimeout(() => {
-                    previewContainer.removeChild(loadingEl);
-                    alert(`Analysis complete for image: ${currentFile.name}`);
-                }, 2000);
+                // Prepare image to send
+                const formData = new FormData();
+                formData.append("image", currentFile);
 
-                // In a real implementation, you would send the file to your server
-                // const formData = new FormData();
-                // formData.append('image', currentFile);
-                // fetch('/api/analyze', {
-                //     method: 'POST',
-                //     body: formData
-                // })
-                // .then(response => response.json())
-                // .then(data => {
-                //     // Process and display results
-                // })
-                // .catch(error => {
-                //     console.error('Error:', error);
-                // })
-                // .finally(() => {
-                //     previewContainer.removeChild(loadingEl);
-                // });
+                // Send to backend
+                fetch("/detection", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        alert(`Analysis Result: ${data.result}`);
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        alert("There was an error analyzing the image.");
+                    })
+                    .finally(() => {
+                        previewContainer.removeChild(loadingEl);
+                    });
             }
 
             // Show error message

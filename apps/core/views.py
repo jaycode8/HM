@@ -1,22 +1,35 @@
 import jwt
+import io
 from datetime import datetime, timedelta
-
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
-from rest_framework.decorators import api_view
+from rest_framework import status
+from rest_framework.decorators import api_view, parser_classes
 from rest_framework.exceptions import ValidationError, NotFound
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.parsers import MultiPartParser
+from PIL import Image
+from model.main import prediction
 from .models import User
 from .serializers import UserSerializer
 
 # Create your views here.
 
-@api_view(["GET"])
-def file_upload(request):
-    ...
+@api_view(["POST"])
+@parser_classes([MultiPartParser])
+def detection(request):
+    image = request.FILES.get('image')
+
+    if not image:
+        return Response({'error': 'No image provided'}, status=status.HTTP_400_BAD_REQUEST)
+
+    image = Image.open(io.BytesIO(image.read()))
+    result = prediction(image)
+    return Response({"result": f"Plant is affected by {result[0]}"}, status=status.HTTP_200_OK)
+
 
 @api_view(["GET"])
 def tomato(request):

@@ -1,0 +1,179 @@
+{% load static %}
+
+<!-- Chatbot Icon -->
+<div id="chatbot-icon">
+    <img src="{% static 'images/chat_bot.jpeg' %}" alt="Chat">
+</div>
+
+<!-- Chatbox -->
+<div id="chatbox-container">
+  <div id="chatbox-header">
+      Chatbot
+      <span id="close-chat">&times;</span>
+  </div>
+  <div id="chatbox"></div>
+  <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Type a message..." required>
+      <button type="submit" id="send-btn">Send</button>
+  </form>
+</div>
+
+<script>
+  if (window.location.pathname.includes("payment")) {
+      document.getElementById('chatbot-icon').style.display = 'none';
+      document.getElementById('chatbox-container').style.display = 'none';
+  }
+
+  const chatIcon = document.getElementById('chatbot-icon');
+  const chatContainer = document.getElementById('chatbox-container');
+  const closeChat = document.getElementById('close-chat');
+  const chatForm = document.getElementById('chat-form');
+  const userInput = document.getElementById('user-input');
+  const chatbox = document.getElementById('chatbox');
+
+  chatIcon.addEventListener('click', () => {
+      chatContainer.style.display = 'flex';
+  });
+
+  closeChat.addEventListener('click', () => {
+      chatContainer.style.display = 'none';
+  });
+
+  chatForm.onsubmit = async function(e) {
+      e.preventDefault();
+      let userMessage = userInput.value.trim();
+      if (!userMessage) return;
+
+      chatbox.innerHTML += `<div class="user-message">${userMessage}</div>`;
+      chatbox.scrollTop = chatbox.scrollHeight;
+      userInput.value = '';
+
+      try {
+          let response = await fetch("/", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRFToken": "{{ csrf_token }}"
+              },
+              body: JSON.stringify({ message: userMessage })
+          });
+
+          let data = await response.json();
+
+          chatbox.innerHTML += `<div class="bot-message">${data.message || "Sorry, I didn’t understand that."}</div>`;
+          chatbox.scrollTop = chatbox.scrollHeight;
+      } catch (error) {
+          console.error("Chatbot error:", error);
+          chatbox.innerHTML += `<div class="bot-message">Error: Could not reach the server.</div>`;
+      }
+  };
+</script>
+
+<style>
+  #chatbot-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #87CEFA; /* Light Blue */
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+  }
+
+  #chatbot-icon img {
+      width: 70px;
+      height: 70px;
+  }
+
+  #chatbox-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      background-color: #E3F2FD;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+  }
+
+  #chatbox-header {
+      background-color: #87CEFA;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+      position: relative;
+  }
+
+  #close-chat {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 18px;
+  }
+
+  #chatbox {
+      height: 300px;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+  }
+
+  .user-message, .bot-message {
+      margin: 5px;
+      padding: 8px;
+      border-radius: 5px;
+      max-width: 70%;
+  }
+
+  .user-message {
+      background-color: #B0E0E6;
+      align-self: flex-end;
+  }
+
+  .bot-message {
+      background-color: #ADD8E6;
+      align-self: flex-start;
+  }
+
+  /* Chat input */
+  #chat-form {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+      background-color: #E3F2FD;
+  }
+
+  #user-input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      background-color: white;
+  }
+
+  #send-btn {
+      background-color: #87CEFA;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 5px;
+  }
+
+  #send-btn:hover {
+      background-color: #5CACEE;
+  }
+</style>
