@@ -49,11 +49,10 @@
       userInput.value = '';
 
       try {
-          let response = await fetch("/", {
+          let response = await fetch("/chatbot", {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",
-                  "X-CSRFToken": "{{ csrf_token }}"
               },
               body: JSON.stringify({ message: userMessage })
           });

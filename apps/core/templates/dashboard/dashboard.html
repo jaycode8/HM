@@ -221,7 +221,7 @@
                             </svg>
 
                             <div style="position: absolute; top: 60px; right: 0; width: 220px; background-color: white; border-radius: 6px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 15px; display: none; z-index: 1000" id="userDropdown">
-                                <a href="/profile" style="display: block; padding: 8px 10px; color: #212529; text-decoration: none; border-radius: 4px; margin: 5px 0">Profile Settings</a>
+                                <a href="#" style="display: block; padding: 8px 10px; color: #212529; text-decoration: none; border-radius: 4px; margin: 5px 0">Profile Settings</a>
                                 <div style="height: 1px; background-color: #e9ecef; margin: 10px 0"></div>
                                 <a href="/logout" style="display: block; padding: 8px 10px; color: #dc3545; text-decoration: none; border-radius: 4px; margin: 5px 0; font-weight: bold">Logout</a>
                             </div>
@@ -408,7 +408,7 @@
 
                                     <div class="upload-controls">
                                         <button class="btn btn-outline" id="remove-btn" disabled>Remove</button>
-                                        <div class="radio-group">
+                                        <div class="radio-group" style="display: none;">
                                             <input type="radio" name="option" class="radio-input" id="option1" checked />
                                             <label for="option1" class="radio-label"></label>
                                             <input type="radio" name="option" class="radio-input" id="option2" />
@@ -420,7 +420,7 @@
                             </div>
 
                             <!-- Progress Bar -->
-                            <div class="progress-container">
+                            <div class="progress-container" style="display: none">
                                 <p class="progress-text">Uploading....</p>
                                 <div class="progress-bar">
                                     <div class="progress-fill"></div>
@@ -428,10 +428,10 @@
                             </div>
 
                             <!-- Result Card -->
-                            <div class="card">
+                            <div class="card" style="display: none">
                                 <h3>Image Preview</h3>
                                 <div class="result-container">
-                                    <img src="/api/placeholder/100/100" alt="Plant leaf with water droplets" class="result-image" />
+                                    <img id="image-result" alt="Plant leaf with water droplets" class="result-image" />
                                     <div class="result-details">
                                         <p class="result-status">
                                             <span class="result-label">Status:</span>
@@ -770,7 +770,6 @@
         </div>
 
         <script>
-            // Get all DOM elements we need
             const dropzone = document.getElementById("dropzone");
             const fileInput = document.getElementById("file-input");
             const imagePreview = document.getElementById("image-preview");
@@ -779,16 +778,13 @@
             const analyzeButton = document.getElementById("analyze-btn");
             const errorMessage = document.getElementById("error-message");
 
-            // Keep track of the current file
             let currentFile = null;
 
-            // Add event listeners
             dropzone.addEventListener("click", () => fileInput.click());
             fileInput.addEventListener("change", handleFileSelect);
             removeButton.addEventListener("click", removeFile);
             analyzeButton.addEventListener("click", analyzeImage);
 
-            // Add drag and drop event listeners
             ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
                 dropzone.addEventListener(eventName, preventDefaults, false);
                 document.body.addEventListener(eventName, preventDefaults, false);
@@ -804,23 +800,19 @@
 
             dropzone.addEventListener("drop", handleDrop, false);
 
-            // Prevent default drag behaviors
             function preventDefaults(e) {
                 e.preventDefault();
                 e.stopPropagation();
             }
 
-            // Highlight dropzone when dragging over it
             function highlight() {
                 dropzone.classList.add("active");
             }
 
-            // Remove highlight when drag leaves or on drop
             function unhighlight() {
                 dropzone.classList.remove("active");
             }
 
-            // Handle dropped files
             function handleDrop(e) {
                 const dt = e.dataTransfer;
                 const files = dt.files;
@@ -830,7 +822,6 @@
                 }
             }
 
-            // Handle file select from input
             function handleFileSelect(e) {
                 const files = e.target.files;
 
@@ -839,9 +830,7 @@
                 }
             }
 
-            // Process the selected file
             function processFile(file) {
-                // Check if the file is an image
                 if (!file.type.match("image.*")) {
                     showError("Invalid file type. Please upload an image.");
                     return;
@@ -850,7 +839,6 @@
                 hideError();
                 currentFile = file;
 
-                // Create and display the preview
                 const reader = new FileReader();
 
                 reader.onload = (e) => {
@@ -858,7 +846,6 @@
                     previewContainer.style.display = "block";
                     dropzone.style.display = "none";
 
-                    // Enable buttons
                     removeButton.disabled = false;
                     analyzeButton.disabled = false;
                 };
@@ -866,7 +853,6 @@
                 reader.readAsDataURL(file);
             }
 
-            // Remove the current file
             function removeFile() {
                 currentFile = null;
                 imagePreview.src = "";
@@ -874,28 +860,23 @@
                 dropzone.style.display = "flex";
                 fileInput.value = "";
 
-                // Disable buttons
                 removeButton.disabled = true;
                 analyzeButton.disabled = true;
 
                 hideError();
             }
 
-            // Analyze the image (demo function)
             function analyzeImage() {
                 if (!currentFile) return;
 
-                // Create and show loading spinner
                 const loadingEl = document.createElement("div");
                 loadingEl.className = "loading";
                 loadingEl.innerHTML = '<div class="loading-spinner"></div>';
                 previewContainer.appendChild(loadingEl);
 
-                // Prepare image to send
                 const formData = new FormData();
                 formData.append("image", currentFile);
 
-                // Send to backend
                 fetch("/detection", {
                     method: "POST",
                     body: formData,
@@ -913,13 +894,11 @@
                     });
             }
 
-            // Show error message
             function showError(message) {
                 errorMessage.textContent = message;
                 errorMessage.style.display = "block";
             }
 
-            // Hide error message
             function hideError() {
                 errorMessage.style.display = "none";
             }

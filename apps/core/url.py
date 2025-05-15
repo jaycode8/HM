@@ -17,5 +17,6 @@ urlpatterns = [
     path('data-logging', views.data_logging),
     path('tomato', views.tomato),
     path('detection', views.detection),
+    path('chatbot', views.chatbot),
     path("api/", include(router.urls)),
 ]

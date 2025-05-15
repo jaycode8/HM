@@ -1,3 +1,5 @@
+import json
+
 import jwt
 import io
 from datetime import datetime, timedelta
@@ -5,6 +7,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.hashers import check_password
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.exceptions import ValidationError, NotFound
@@ -16,11 +19,25 @@ from model.main import prediction
 from .models import User
 from .serializers import UserSerializer
 
-# Create your views here.
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
+
+@csrf_exempt
+@api_view(["POST"])
+def chatbot(request):
+    chatbot = ChatBot('Ron Obvious')
+    trainer = ChatterBotCorpusTrainer(chatbot)
+    trainer.train("chatterbot.corpus.english")
+    try:
+        chat = chatbot.get_response("Hello, how are you today?")
+        return Response({'message': str(chat)})
+    except Exception as e:
+        return Response({'message': f"Error: {str(e)}"}, status=500)
 
 @api_view(["POST"])
 @parser_classes([MultiPartParser])
 def detection(request):
+    # return Response({"result": f"Plant is affected by Black Sport"}, status=status.HTTP_200_OK)
     image = request.FILES.get('image')
 
     if not image:
